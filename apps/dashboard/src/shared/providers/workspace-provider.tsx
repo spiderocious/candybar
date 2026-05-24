@@ -1,6 +1,6 @@
+import { workspaceToken } from '@shared/services/workspace-token';
 import { createContext, useCallback, useContext, useState, type ReactNode } from 'react';
 
-import { workspaceToken } from '@shared/services/workspace-token';
 
 interface WorkspaceContextValue {
   connected: boolean;

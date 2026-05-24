@@ -1,8 +1,8 @@
 import type { DeadLetter, ReplayResult } from '@communique/core';
 import { EP } from '@communique/core';
+import { apiClient } from '@shared/services/api-client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { apiClient } from '@shared/services/api-client';
 
 export const deadLettersKey = () => ['dead-letters'] as const;
 

@@ -1,10 +1,9 @@
 import { ROUTES, type Channel } from '@communique/core';
-import { Repeat, Show } from 'meemaw';
-import { useNavigate, useParams } from 'react-router-dom';
-
 import { ArrowLeft, Trash2 } from '@icons';
 import { QueryState } from '@shared/components/query-state';
 import { Badge, Button, Card, PageHeader } from '@ui/components/primitives';
+import { Repeat, Show } from 'meemaw';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   useDeleteSubscriber,

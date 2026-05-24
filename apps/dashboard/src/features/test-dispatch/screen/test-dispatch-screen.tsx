@@ -1,6 +1,4 @@
-import { Repeat, Show } from 'meemaw';
-import { useState } from 'react';
-
+import { useTemplates } from '@features/templates/api/use-templates';
 import { Send } from '@icons';
 import { ApiError } from '@shared/services/api-error';
 import {
@@ -12,7 +10,9 @@ import {
   PageHeader,
   TextareaField,
 } from '@ui/components/primitives';
-import { useTemplates } from '@features/templates/api/use-templates';
+import { Repeat, Show } from 'meemaw';
+import { useState } from 'react';
+
 
 import { useTestDispatch } from '../api/use-test-dispatch.js';
 

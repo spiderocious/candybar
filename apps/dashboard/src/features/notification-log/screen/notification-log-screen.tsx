@@ -1,10 +1,9 @@
 import type { DispatchAttempt } from '@communique/core';
-import { Repeat } from 'meemaw';
-import { useState } from 'react';
-
 import { Zap } from '@icons';
 import { QueryState } from '@shared/components/query-state';
 import { Badge, Card, EmptyState, PageHeader } from '@ui/components/primitives';
+import { Repeat } from 'meemaw';
+import { useState } from 'react';
 
 import { useNotificationLog, type LogFilters } from '../api/use-notification-log.js';
 
@@ -97,7 +96,7 @@ function Select({
         value={value}
         onChange={(e) => onChange(e.target.value)}
       >
-        <Repeat each={options}>
+        <Repeat each={[...options]}>
           {(o) => <option value={o}>{o || 'All'}</option>}
         </Repeat>
       </select>

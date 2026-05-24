@@ -1,7 +1,4 @@
 import { ROUTES } from '@communique/core';
-import { Repeat } from 'meemaw';
-import { NavLink, Outlet } from 'react-router-dom';
-
 import {
   Activity,
   Inbox,
@@ -15,8 +12,10 @@ import {
 } from '@icons';
 import { useWorkspace } from '@shared/providers/workspace-provider';
 import { cn } from '@shared/utils/cn';
-import { Button } from '@ui/components/primitives';
 import { Logo } from '@ui/components/logo';
+import { Button } from '@ui/components/primitives';
+import { Repeat } from 'meemaw';
+import { NavLink, Outlet } from 'react-router-dom';
 
 interface NavItem {
   readonly to: string;
@@ -43,7 +42,7 @@ export function AppShell() {
       <aside className="flex w-60 flex-col border-r border-border bg-surface p-4">
         <Logo className="mb-6 px-2" />
         <nav className="flex flex-1 flex-col gap-1">
-          <Repeat each={NAV}>
+          <Repeat each={[...NAV]}>
             {(item) => (
               <NavLink
                 to={item.to}

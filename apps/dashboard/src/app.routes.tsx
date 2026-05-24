@@ -1,12 +1,11 @@
 import { ROUTE_PATTERNS } from '@communique/core';
+import { useWorkspace } from '@shared/providers/workspace-provider';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { useWorkspace } from '@shared/providers/workspace-provider';
-
 import { AppShell } from './app.shell.js';
-import { ConnectScreen } from './features/connect/screen/connect-screen.js';
 import { AudienceDetailScreen } from './features/audiences/screen/audience-detail-screen.js';
 import { AudiencesScreen } from './features/audiences/screen/audiences-screen.js';
+import { ConnectScreen } from './features/connect/screen/connect-screen.js';
 import { DeadLettersScreen } from './features/dead-letters/screen/dead-letters-screen.js';
 import { MetricsScreen } from './features/metrics/screen/metrics-screen.js';
 import { NotificationLogScreen } from './features/notification-log/screen/notification-log-screen.js';

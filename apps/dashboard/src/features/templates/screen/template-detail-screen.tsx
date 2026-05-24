@@ -1,8 +1,4 @@
 import { ROUTES, type TemplateWithVersions } from '@communique/core';
-import { Repeat, Show } from 'meemaw';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-
 import { ArrowLeft } from '@icons';
 import { QueryState } from '@shared/components/query-state';
 import { ApiError } from '@shared/services/api-error';
@@ -15,6 +11,9 @@ import {
   PageHeader,
   TextareaField,
 } from '@ui/components/primitives';
+import { Repeat, Show } from 'meemaw';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { usePreviewTemplate, usePublishVersion, useTemplate } from '../api/use-templates.js';
 

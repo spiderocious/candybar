@@ -1,8 +1,8 @@
 import type { TestDispatchInput, TestDispatchResult } from '@communique/core';
 import { EP } from '@communique/core';
+import { apiClient } from '@shared/services/api-client';
 import { useMutation } from '@tanstack/react-query';
 
-import { apiClient } from '@shared/services/api-client';
 
 export function useTestDispatch() {
   return useMutation({

@@ -1,12 +1,11 @@
 import { ROUTES, type Channel, type Template } from '@communique/core';
-import { Repeat, Show } from 'meemaw';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
 import { Mail, Plus } from '@icons';
 import { QueryState } from '@shared/components/query-state';
 import { ApiError } from '@shared/services/api-error';
 import { Badge, Button, Card, EmptyState, Field, InlineError, PageHeader } from '@ui/components/primitives';
+import { Repeat, Show } from 'meemaw';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useCreateTemplate, useTemplates } from '../api/use-templates.js';
 

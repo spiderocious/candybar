@@ -29,9 +29,10 @@ export async function startStack(): Promise<TestStack> {
   process.env.PROVIDER_ENCRYPTION_KEY = randomBytes(32).toString('base64');
 
   // Run migrations programmatically against the fresh container.
-  const migrationRunner = (await import('node-pg-migrate')).default;
-  const run =
-    (migrationRunner as unknown as { default?: typeof migrationRunner }).default ?? migrationRunner;
+  // node-pg-migrate ships as CJS; normalise to the callable runner.
+  type Runner = (opts: Record<string, unknown>) => Promise<unknown>;
+  const mod = (await import('node-pg-migrate')) as unknown as { default: Runner | { default: Runner } };
+  const run: Runner = typeof mod.default === 'function' ? mod.default : mod.default.default;
   await run({
     databaseUrl: process.env.DATABASE_URL,
     dir: fileURLToPath(new URL('../../migrations', import.meta.url)),

@@ -4,9 +4,9 @@ import type {
   CreateAudienceInput,
 } from '@communique/core';
 import { EP } from '@communique/core';
+import { apiClient } from '@shared/services/api-client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { apiClient } from '@shared/services/api-client';
 
 interface Member {
   subscriber_id: string;

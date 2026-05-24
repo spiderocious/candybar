@@ -1,9 +1,9 @@
+import { ApiError } from '@shared/services/api-error';
 import type { UseQueryResult } from '@tanstack/react-query';
+import { InlineError, Spinner } from '@ui/components/primitives';
 import { Show } from 'meemaw';
 import type { ReactNode } from 'react';
 
-import { ApiError } from '@shared/services/api-error';
-import { InlineError, Spinner } from '@ui/components/primitives';
 
 interface QueryStateProps<T> {
   readonly query: UseQueryResult<T>;

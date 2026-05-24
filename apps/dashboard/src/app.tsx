@@ -1,8 +1,8 @@
+import { WorkspaceProvider } from '@shared/providers/workspace-provider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { WorkspaceProvider } from '@shared/providers/workspace-provider';
 
 import { AppRoutes } from './app.routes.js';
 

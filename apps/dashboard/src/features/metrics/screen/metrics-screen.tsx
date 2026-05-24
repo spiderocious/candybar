@@ -1,8 +1,7 @@
 import type { Metrics } from '@communique/core';
-import { Repeat } from 'meemaw';
-
 import { QueryState } from '@shared/components/query-state';
 import { Card, PageHeader } from '@ui/components/primitives';
+import { Repeat } from 'meemaw';
 
 import { useMetrics } from '../api/use-metrics.js';
 
@@ -59,7 +58,7 @@ function Breakdown({
     <Card>
       <h3 className="mb-3 text-sm font-semibold text-text">{title}</h3>
       <div className="flex flex-col gap-2">
-        <Repeat each={rows}>
+        <Repeat each={[...rows]}>
           {(r) => (
             <div className="flex items-center justify-between text-sm">
               <span className="text-text-muted">{r.key}</span>

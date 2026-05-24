@@ -8,9 +8,9 @@ import type {
   TemplateWithVersions,
 } from '@communique/core';
 import { EP } from '@communique/core';
+import { apiClient } from '@shared/services/api-client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { apiClient } from '@shared/services/api-client';
 
 export const templatesKey = () => ['templates'] as const;
 export const templateKey = (id: string) => ['template', id] as const;

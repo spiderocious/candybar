@@ -1,8 +1,8 @@
 import type { DispatchAttempt } from '@communique/core';
 import { EP } from '@communique/core';
+import { apiClient } from '@shared/services/api-client';
 import { useQuery } from '@tanstack/react-query';
 
-import { apiClient } from '@shared/services/api-client';
 
 export interface LogFilters {
   channel?: string;

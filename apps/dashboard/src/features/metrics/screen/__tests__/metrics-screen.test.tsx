@@ -1,11 +1,11 @@
+import { renderWithProviders } from '@app/test/render';
+import { server } from '@app/test/server';
 import { EP } from '@communique/core';
+import { ENV } from '@shared/config/env';
 import { screen, waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 
-import { ENV } from '@shared/config/env';
-import { renderWithProviders } from '@app/test/render';
-import { server } from '@app/test/server';
 
 import { MetricsScreen } from '../metrics-screen.js';
 

@@ -4,9 +4,6 @@ import {
   type Provider,
   type ProviderKey,
 } from '@communique/core';
-import { Repeat, Show } from 'meemaw';
-import { useState } from 'react';
-
 import { Plus, Settings, Trash2 } from '@icons';
 import { QueryState } from '@shared/components/query-state';
 import { ApiError } from '@shared/services/api-error';
@@ -15,11 +12,12 @@ import {
   Button,
   Card,
   EmptyState,
-  Field,
   InlineError,
   PageHeader,
   TextareaField,
 } from '@ui/components/primitives';
+import { Repeat, Show } from 'meemaw';
+import { useState } from 'react';
 
 import {
   useCreateProvider,
@@ -156,7 +154,7 @@ function AddProviderForm({ onDone }: { readonly onDone: () => void }) {
             value={providerKey}
             onChange={(e) => setProviderKey(e.target.value as ProviderKey)}
           >
-            <Repeat each={options}>
+            <Repeat each={[...options]}>
               {(o) => <option value={o}>{o}</option>}
             </Repeat>
           </select>

@@ -1,8 +1,8 @@
 import type { CreateRoutingRuleInput, RoutingRule } from '@communique/core';
 import { EP } from '@communique/core';
+import { apiClient } from '@shared/services/api-client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { apiClient } from '@shared/services/api-client';
 
 export const routingRulesKey = () => ['routing-rules'] as const;
 
