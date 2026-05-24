@@ -45,3 +45,10 @@ export const CreateCredentialSchema = z.object({
   name: z.string().min(2).max(120),
 });
 export type CreateCredentialInput = z.infer<typeof CreateCredentialSchema>;
+
+/** Response of POST /workspaces — workspace plus its first (one-time) key. */
+export const WorkspaceWithCredentialSchema = z.object({
+  workspace: WorkspaceSchema,
+  credential: ApiCredentialWithSecretSchema,
+});
+export type WorkspaceWithCredential = z.infer<typeof WorkspaceWithCredentialSchema>;

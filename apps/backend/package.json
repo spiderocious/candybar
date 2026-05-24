@@ -12,8 +12,8 @@
     "test": "vitest run",
     "test:integration": "vitest run --config vitest.integration.config.ts",
     "test:e2e": "vitest run --config vitest.e2e.config.ts",
-    "migrate": "node-pg-migrate up -m migrations --envPath .env --no-check-order",
-    "migrate:down": "node-pg-migrate down -m migrations --envPath .env"
+    "migrate": "tsx --env-file=.env scripts/migrate.ts up",
+    "migrate:down": "tsx --env-file=.env scripts/migrate.ts down"
   },
   "dependencies": {
     "@communique/core": "workspace:*",
