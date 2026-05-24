@@ -2,8 +2,7 @@ import { CreateRoutingRuleSchema, UpdateRoutingRuleSchema } from '@communique/co
 import { Router } from 'express';
 
 import { asyncHandler } from '../../lib/async-handler.js';
-import { apiKeyAuth } from '../../middlewares/api-key-auth.middleware.js';
-import { rateLimiter } from '../../middlewares/rate-limiter.middleware.js';
+import { protect } from '../../middlewares/protect.js';
 import { validate } from '../../middlewares/validate.middleware.js';
 
 import {
@@ -15,7 +14,7 @@ import {
 } from './routing-rules.controller.js';
 
 export const routingRulesRoutes: Router = Router();
-routingRulesRoutes.use('/routing-rules', asyncHandler(apiKeyAuth), rateLimiter);
+routingRulesRoutes.use('/routing-rules', ...protect);
 
 routingRulesRoutes.get('/routing-rules', asyncHandler(listRules));
 routingRulesRoutes.post('/routing-rules', validate(CreateRoutingRuleSchema), asyncHandler(createRule));

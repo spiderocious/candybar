@@ -2,8 +2,7 @@ import { CreateTemplateSchema, PreviewTemplateSchema, PublishVersionSchema } fro
 import { Router } from 'express';
 
 import { asyncHandler } from '../../lib/async-handler.js';
-import { apiKeyAuth } from '../../middlewares/api-key-auth.middleware.js';
-import { rateLimiter } from '../../middlewares/rate-limiter.middleware.js';
+import { protect } from '../../middlewares/protect.js';
 import { validate } from '../../middlewares/validate.middleware.js';
 
 import {
@@ -17,7 +16,7 @@ import {
 } from './templates.controller.js';
 
 export const templatesRoutes: Router = Router();
-templatesRoutes.use('/templates', asyncHandler(apiKeyAuth), rateLimiter);
+templatesRoutes.use('/templates', ...protect);
 
 templatesRoutes.get('/templates', asyncHandler(listTemplates));
 templatesRoutes.post('/templates', validate(CreateTemplateSchema), asyncHandler(createTemplate));

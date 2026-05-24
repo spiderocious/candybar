@@ -2,8 +2,7 @@ import { CreateCredentialSchema, CreateWorkspaceSchema } from '@communique/core'
 import { Router } from 'express';
 
 import { asyncHandler } from '../../lib/async-handler.js';
-import { apiKeyAuth } from '../../middlewares/api-key-auth.middleware.js';
-import { rateLimiter } from '../../middlewares/rate-limiter.middleware.js';
+import { protect } from '../../middlewares/protect.js';
 import { validate } from '../../middlewares/validate.middleware.js';
 
 import {
@@ -26,7 +25,7 @@ workspacesPublicRoutes.get('/workspaces/:id', asyncHandler(getWorkspace));
 
 /** Authenticated credential management (scoped to the calling workspace). */
 export const credentialsRoutes: Router = Router();
-credentialsRoutes.use('/workspace/credentials', asyncHandler(apiKeyAuth), rateLimiter);
+credentialsRoutes.use('/workspace/credentials', ...protect);
 credentialsRoutes.get('/workspace/credentials', asyncHandler(listCredentials));
 credentialsRoutes.post(
   '/workspace/credentials',

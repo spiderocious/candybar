@@ -7,8 +7,7 @@ import {
 import { Router } from 'express';
 
 import { asyncHandler } from '../../lib/async-handler.js';
-import { apiKeyAuth } from '../../middlewares/api-key-auth.middleware.js';
-import { rateLimiter } from '../../middlewares/rate-limiter.middleware.js';
+import { protect } from '../../middlewares/protect.js';
 import { validate } from '../../middlewares/validate.middleware.js';
 
 import {
@@ -24,7 +23,7 @@ import {
 } from './subscribers.controller.js';
 
 export const subscribersRoutes: Router = Router();
-subscribersRoutes.use('/subscribers', asyncHandler(apiKeyAuth), rateLimiter);
+subscribersRoutes.use('/subscribers', ...protect);
 
 subscribersRoutes.get('/subscribers', asyncHandler(listSubscribers));
 subscribersRoutes.post(

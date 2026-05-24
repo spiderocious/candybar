@@ -6,8 +6,7 @@ import {
 import { Router } from 'express';
 
 import { asyncHandler } from '../../lib/async-handler.js';
-import { apiKeyAuth } from '../../middlewares/api-key-auth.middleware.js';
-import { rateLimiter } from '../../middlewares/rate-limiter.middleware.js';
+import { protect } from '../../middlewares/protect.js';
 import { validate } from '../../middlewares/validate.middleware.js';
 
 import {
@@ -22,7 +21,7 @@ import {
 } from './audiences.controller.js';
 
 export const audiencesRoutes: Router = Router();
-audiencesRoutes.use('/audiences', asyncHandler(apiKeyAuth), rateLimiter);
+audiencesRoutes.use('/audiences', ...protect);
 
 audiencesRoutes.get('/audiences', asyncHandler(listAudiences));
 audiencesRoutes.post('/audiences', validate(CreateAudienceSchema), asyncHandler(createAudience));

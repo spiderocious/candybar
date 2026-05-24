@@ -2,8 +2,7 @@ import { CreateProviderSchema, UpdateProviderSchema } from '@communique/core';
 import { Router } from 'express';
 
 import { asyncHandler } from '../../lib/async-handler.js';
-import { apiKeyAuth } from '../../middlewares/api-key-auth.middleware.js';
-import { rateLimiter } from '../../middlewares/rate-limiter.middleware.js';
+import { protect } from '../../middlewares/protect.js';
 import { validate } from '../../middlewares/validate.middleware.js';
 
 import {
@@ -15,7 +14,7 @@ import {
 } from './providers.controller.js';
 
 export const providersRoutes: Router = Router();
-providersRoutes.use('/providers', asyncHandler(apiKeyAuth), rateLimiter);
+providersRoutes.use('/providers', ...protect);
 
 providersRoutes.get('/providers', asyncHandler(listProviders));
 providersRoutes.post('/providers', validate(CreateProviderSchema), asyncHandler(createProvider));

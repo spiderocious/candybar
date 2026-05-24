@@ -1,8 +1,7 @@
 import { Router, type Express } from 'express';
 
 import { asyncHandler } from '../../lib/async-handler.js';
-import { apiKeyAuth } from '../../middlewares/api-key-auth.middleware.js';
-import { rateLimiter } from '../../middlewares/rate-limiter.middleware.js';
+import { protect } from '../../middlewares/protect.js';
 
 import {
   getDeadLetter,
@@ -12,7 +11,7 @@ import {
 
 export function register(app: Express): void {
   const router = Router();
-  router.use('/dead-letters', asyncHandler(apiKeyAuth), rateLimiter);
+  router.use('/dead-letters', ...protect);
   router.get('/dead-letters', asyncHandler(listDeadLetters));
   router.post('/dead-letters/:id/replay', asyncHandler(replayDeadLetter));
   router.get('/dead-letters/:id', asyncHandler(getDeadLetter));

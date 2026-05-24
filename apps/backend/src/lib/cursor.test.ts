@@ -1,6 +1,8 @@
+import { ERROR_CODES } from '@communique/core';
 import { describe, expect, it } from 'vitest';
 
 import { buildCursorPage, clampLimit, decodeCursor, encodeCursor } from './cursor.js';
+import { ValidationError } from './errors.js';
 
 describe('cursor codec', () => {
   it('round-trips without data loss', () => {
@@ -8,8 +10,23 @@ describe('cursor codec', () => {
     expect(decodeCursor(encodeCursor(payload))).toEqual(payload);
   });
 
-  it('throws on a malformed cursor', () => {
-    expect(() => decodeCursor('not-base64-json')).toThrow('Invalid cursor');
+  // BUG-MED-01 regression: a malformed cursor is bad client input → 400/1001,
+  // surfaced as a typed ValidationError (field "cursor"), never a plain Error/500.
+  it('throws a ValidationError (1001, field=cursor) on a malformed cursor', () => {
+    expect(() => decodeCursor('not-base64-json')).toThrow(ValidationError);
+    try {
+      decodeCursor('%%%not-valid%%%');
+      throw new Error('should have thrown');
+    } catch (err) {
+      expect(err).toBeInstanceOf(ValidationError);
+      expect((err as ValidationError).errorCode).toBe(ERROR_CODES.VALIDATION);
+      expect((err as ValidationError).field).toBe('cursor');
+    }
+  });
+
+  it('throws a ValidationError when the decoded shape is wrong', () => {
+    const badShape = Buffer.from(JSON.stringify({ foo: 'bar' }), 'utf8').toString('base64url');
+    expect(() => decodeCursor(badShape)).toThrow(ValidationError);
   });
 });
 

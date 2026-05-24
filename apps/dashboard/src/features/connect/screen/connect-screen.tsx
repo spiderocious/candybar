@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useCreateWorkspace } from '../api/use-create-workspace.js';
+import { useVerifyKey } from '../api/use-verify-key.js';
 
 /**
  * Entry screen. Either paste an existing workspace API key, or create a brand
@@ -25,15 +26,35 @@ export function ConnectScreen() {
   const [newKey, setNewKey] = useState<string>();
 
   const createMutation = useCreateWorkspace();
+  const verifyKey = useVerifyKey();
 
   function handleConnectKey() {
-    if (key.trim().length < 8) {
+    const trimmed = key.trim();
+    if (trimmed.length < 8) {
       setKeyError('Enter a valid workspace API key.');
       return;
     }
     setKeyError(undefined);
-    connect(key.trim());
-    navigate(ROUTES.OVERVIEW);
+    // Set the token, then verify it against the API before entering the app.
+    // On failure we clear it and show an inline error rather than routing into
+    // an app where every query 401s.
+    workspaceToken.set(trimmed);
+    verifyKey.mutate(undefined, {
+      onSuccess: () => {
+        connect(trimmed);
+        navigate(ROUTES.OVERVIEW);
+      },
+      onError: (err) => {
+        workspaceToken.clear();
+        setKeyError(
+          err instanceof ApiError && err.isUnauthorized()
+            ? 'That API key is invalid or has been revoked.'
+            : err instanceof ApiError
+              ? err.message
+              : 'Could not reach the server. Check it is running.',
+        );
+      },
+    });
   }
 
   function handleCreate() {
@@ -91,7 +112,9 @@ export function ConnectScreen() {
               onChange={(e) => setKey(e.target.value)}
               hint="Stored in memory only — you'll re-enter it after a refresh."
             />
-            <Button onClick={handleConnectKey}>Connect</Button>
+            <Button onClick={handleConnectKey} loading={verifyKey.isPending}>
+              Connect
+            </Button>
           </div>
         </Show>
 

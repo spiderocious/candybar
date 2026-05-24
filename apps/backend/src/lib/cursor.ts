@@ -1,5 +1,7 @@
 import type { PaginationMeta } from '@communique/core';
 
+import { ValidationError } from './errors.js';
+
 export interface CursorPayload {
   last_id: string;
   last_sort_key: string;
@@ -10,6 +12,8 @@ export function encodeCursor(payload: CursorPayload): string {
 }
 
 export function decodeCursor(cursor: string): CursorPayload {
+  // A malformed cursor is bad CLIENT input (a stale bookmark, a fuzzer, a typo),
+  // not a server fault — surface it as a single-field 400/1001, never a 500/1009.
   try {
     const parsed = JSON.parse(Buffer.from(cursor, 'base64url').toString('utf8')) as CursorPayload;
     if (typeof parsed.last_id !== 'string' || typeof parsed.last_sort_key !== 'string') {
@@ -17,7 +21,7 @@ export function decodeCursor(cursor: string): CursorPayload {
     }
     return parsed;
   } catch {
-    throw new Error('Invalid cursor');
+    throw new ValidationError('Invalid pagination cursor.', 'cursor');
   }
 }
 
