@@ -1,0 +1,38 @@
+{
+  "name": "communique",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "nx run-many -t build",
+    "typecheck": "nx run-many -t typecheck",
+    "lint": "nx run-many -t lint",
+    "test": "nx run-many -t test",
+    "test:integration": "nx run-many -t test:integration",
+    "test:e2e": "nx run-many -t test:e2e",
+    "migrate": "pnpm --filter @communique/backend migrate",
+    "dev:backend": "pnpm --filter @communique/backend dev",
+    "dev:dashboard": "pnpm --filter @communique/dashboard dev",
+    "format": "prettier --write .",
+    "prepare": "husky || true"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.5",
+    "eslint": "^9.17.0",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "nx": "^20.3.0",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.19.1"
+  }
+}
