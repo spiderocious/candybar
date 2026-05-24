@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "noEmit": false,
+    "paths": {
+      "@features/*": ["features/*"],
+      "@lib/*": ["lib/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@shared/*": ["shared/*"],
+      "@providers/*": ["providers/*"],
+      "@communique/core": ["../../../packages/core/dist/index.d.ts"]
+    }
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.integration.test.ts",
+    "src/**/*.e2e.test.ts",
+    "src/test/**"
+  ]
+}
