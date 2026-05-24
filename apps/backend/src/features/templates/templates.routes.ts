@@ -16,7 +16,7 @@ import {
   publishVersion,
 } from './templates.controller.js';
 
-export const templatesRoutes = Router();
+export const templatesRoutes: Router = Router();
 templatesRoutes.use('/templates', asyncHandler(apiKeyAuth), rateLimiter);
 
 templatesRoutes.get('/templates', asyncHandler(listTemplates));

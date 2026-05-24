@@ -23,7 +23,7 @@ import {
   updateSubscriber,
 } from './subscribers.controller.js';
 
-export const subscribersRoutes = Router();
+export const subscribersRoutes: Router = Router();
 subscribersRoutes.use('/subscribers', asyncHandler(apiKeyAuth), rateLimiter);
 
 subscribersRoutes.get('/subscribers', asyncHandler(listSubscribers));

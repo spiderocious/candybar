@@ -8,7 +8,7 @@ import { validate } from '../../middlewares/validate.middleware.js';
 
 import { getEvent, publishEvent } from './events.controller.js';
 
-export const eventsRoutes = Router();
+export const eventsRoutes: Router = Router();
 eventsRoutes.use('/events', asyncHandler(apiKeyAuth), rateLimiter);
 
 eventsRoutes.post('/events', validate(PublishEventSchema), asyncHandler(publishEvent));

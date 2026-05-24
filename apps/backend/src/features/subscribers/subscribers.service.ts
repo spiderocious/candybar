@@ -37,13 +37,13 @@ export const subscribersService = {
       });
     }
 
-    return ok(await subscribersRepository.hydrate(workspaceId, subscriber));
+    return ok(await subscribersRepository.hydrate(subscriber));
   },
 
   async get(workspaceId: string, id: string): Promise<ServiceResult<SubscriberWithChannels>> {
     const subscriber = await subscribersRepository.findById(workspaceId, id);
     if (!subscriber) return fail(new NotFoundError('Subscriber not found.'));
-    return ok(await subscribersRepository.hydrate(workspaceId, subscriber));
+    return ok(await subscribersRepository.hydrate(subscriber));
   },
 
   async list(
@@ -63,7 +63,7 @@ export const subscribersService = {
     const merged = { ...existing.attributes, ...(input.attributes ?? {}) };
     const updated = await subscribersRepository.updateAttributes(workspaceId, id, merged);
     if (!updated) return fail(new NotFoundError('Subscriber not found.'));
-    return ok(await subscribersRepository.hydrate(workspaceId, updated));
+    return ok(await subscribersRepository.hydrate(updated));
   },
 
   async remove(workspaceId: string, id: string): Promise<ServiceResult<null>> {
@@ -108,6 +108,6 @@ export const subscribersService = {
     const subscriber = await subscribersRepository.findById(workspaceId, id);
     if (!subscriber) return fail(new NotFoundError('Subscriber not found.'));
     await subscribersRepository.setOptOut(subscriber.id, input.channel, input.opted_out);
-    return ok(await subscribersRepository.hydrate(workspaceId, subscriber));
+    return ok(await subscribersRepository.hydrate(subscriber));
   },
 };

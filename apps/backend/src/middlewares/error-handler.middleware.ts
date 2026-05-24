@@ -1,5 +1,5 @@
 import { ERROR_CODES, ERROR_CODE_TYPE, type ErrorEnvelope } from '@communique/core';
-import type { ErrorRequestHandler } from 'express';
+import type { ErrorRequestHandler, Response } from 'express';
 import { ZodError } from 'zod';
 
 import { AppError, RateLimitedError, validationErrorFromZod } from '../lib/errors.js';
@@ -41,7 +41,7 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, next) => {
   return res.status(500).json(envelope);
 };
 
-function send(res: Parameters<ErrorRequestHandler>[1], err: AppError) {
+function send(res: Response, err: AppError) {
   const envelope: ErrorEnvelope = {
     errorCode: err.errorCode,
     errorMessage: err.message,

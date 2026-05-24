@@ -14,7 +14,7 @@ import {
   updateProvider,
 } from './providers.controller.js';
 
-export const providersRoutes = Router();
+export const providersRoutes: Router = Router();
 providersRoutes.use('/providers', asyncHandler(apiKeyAuth), rateLimiter);
 
 providersRoutes.get('/providers', asyncHandler(listProviders));

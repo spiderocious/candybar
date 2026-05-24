@@ -16,7 +16,7 @@ import {
 } from './workspaces.controller.js';
 
 /** Unauthenticated bootstrap routes: create a workspace, fetch one by id. */
-export const workspacesPublicRoutes = Router();
+export const workspacesPublicRoutes: Router = Router();
 workspacesPublicRoutes.post(
   '/workspaces',
   validate(CreateWorkspaceSchema),
@@ -25,7 +25,7 @@ workspacesPublicRoutes.post(
 workspacesPublicRoutes.get('/workspaces/:id', asyncHandler(getWorkspace));
 
 /** Authenticated credential management (scoped to the calling workspace). */
-export const credentialsRoutes = Router();
+export const credentialsRoutes: Router = Router();
 credentialsRoutes.use('/workspace/credentials', asyncHandler(apiKeyAuth), rateLimiter);
 credentialsRoutes.get('/workspace/credentials', asyncHandler(listCredentials));
 credentialsRoutes.post(

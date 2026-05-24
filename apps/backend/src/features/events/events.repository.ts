@@ -97,6 +97,24 @@ export const eventsRepository = {
     await sql.query(`UPDATE events SET status = $2 WHERE id = $1`, [eventId, status]);
   },
 
+  /**
+   * Insert a synthetic event WITHOUT an outbox row. Used by test-dispatch so the
+   * dispatch/attempt rows have a valid event FK without the relay picking it up.
+   */
+  async insertSynthetic(params: {
+    workspaceId: string;
+    eventType: string;
+    targetRef: string;
+  }): Promise<string> {
+    const eventId = newId('event');
+    await pool.query(
+      `INSERT INTO events (id, workspace_id, event_type, payload, target_kind, target_ref, status)
+       VALUES ($1, $2, $3, '{}'::jsonb, 'subscriber', $4, 'dispatched')`,
+      [eventId, params.workspaceId, params.eventType, params.targetRef],
+    );
+    return eventId;
+  },
+
   /** Re-create an outbox row for an event (used by dead-letter replay). */
   async requeue(eventId: string): Promise<void> {
     await withTransaction(async (trx) => {

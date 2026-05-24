@@ -1,7 +1,7 @@
 import type { Channel, Template, TemplateVersion } from '@communique/core';
 
-import { pool, withTransaction } from '../../lib/db.js';
 import { buildCursorPage, type CursorPage, type CursorPayload } from '../../lib/cursor.js';
+import { pool, withTransaction } from '../../lib/db.js';
 
 interface TemplateRow {
   id: string;

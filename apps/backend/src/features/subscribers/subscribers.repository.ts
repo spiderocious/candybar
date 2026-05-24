@@ -5,8 +5,8 @@ import type {
   SubscriberWithChannels,
 } from '@communique/core';
 
-import { pool, type Sql } from '../../lib/db.js';
 import { buildCursorPage, type CursorPage, type CursorPayload } from '../../lib/cursor.js';
+import { pool, type Sql } from '../../lib/db.js';
 
 interface SubscriberRow {
   id: string;
@@ -126,7 +126,7 @@ export const subscribersRepository = {
     return r.rows;
   },
 
-  async hydrate(workspaceId: string, sub: Subscriber): Promise<SubscriberWithChannels> {
+  async hydrate(sub: Subscriber): Promise<SubscriberWithChannels> {
     const [channels, optouts, audiences] = await Promise.all([
       this.listChannels(sub.id),
       this.listOptOuts(sub.id),

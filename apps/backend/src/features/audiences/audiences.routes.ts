@@ -21,7 +21,7 @@ import {
   updateAudience,
 } from './audiences.controller.js';
 
-export const audiencesRoutes = Router();
+export const audiencesRoutes: Router = Router();
 audiencesRoutes.use('/audiences', asyncHandler(apiKeyAuth), rateLimiter);
 
 audiencesRoutes.get('/audiences', asyncHandler(listAudiences));

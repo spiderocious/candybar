@@ -14,7 +14,7 @@ import {
   updateRule,
 } from './routing-rules.controller.js';
 
-export const routingRulesRoutes = Router();
+export const routingRulesRoutes: Router = Router();
 routingRulesRoutes.use('/routing-rules', asyncHandler(apiKeyAuth), rateLimiter);
 
 routingRulesRoutes.get('/routing-rules', asyncHandler(listRules));

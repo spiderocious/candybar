@@ -7,7 +7,6 @@
     "lib": ["ES2022"],
     "types": ["node"],
     "baseUrl": "./src",
-    "rootDir": "./src",
     "outDir": "dist",
     "paths": {
       "@features/*": ["features/*"],
